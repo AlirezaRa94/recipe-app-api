@@ -64,7 +64,7 @@ class PrivateTagsAPITests(TestCase):
         self.assertEqual(res.data[0]['name'], tag.name)
 
     def test_create_tag_successful(self):
-        """ Test creating a new tag"""
+        """ Test creating a new tag """
         payload = {'name': 'Test Tag'}
         self.client.post(TAGS_URL, payload)
 
@@ -75,7 +75,7 @@ class PrivateTagsAPITests(TestCase):
         self.assertTrue(exists)
 
     def test_create_tag_invalid(self):
-        """ Test creating a new tag with invalid payload"""
+        """ Test creating a new tag with invalid payload """
         payload = {'name': ''}
         res = self.client.post(TAGS_URL, payload)
 
