@@ -26,7 +26,7 @@ class PublicTagsAPITests(TestCase):
 
 
 class PrivateTagsAPITests(TestCase):
-    """ Test the authorized user tags API"""
+    """ Test the authorized user tags API """
 
     def setUp(self) -> None:
         self.user = get_user_model().objects.create_user(
