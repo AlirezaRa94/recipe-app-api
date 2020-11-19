@@ -18,7 +18,14 @@ class BaseRecipeAttrViewSet(GenericViewSet, ListModelMixin, CreateModelMixin):
 
     def get_queryset(self):
         """ Return objects for the current authenticated user only """
-        return self.queryset.filter(user=self.request.user).order_by('-name')
+        queryset = self.queryset.filter(user=self.request.user)
+        assigned_only = bool(
+            int(self.request.query_params.get('assigned_only', 0))
+        )
+        if assigned_only:
+            queryset = queryset.filter(recipe__isnull=False)
+
+        return queryset.order_by('-name').distinct()
 
     def perform_create(self, serializer):
         """ Create a new object for the current authenticated user only """
@@ -51,7 +58,7 @@ class RecipeViewSet(ModelViewSet):
 
     def get_queryset(self):
         """ Retrieve the recipes for the authenticated user only """
-        queryset = self.queryset.filter(user=self.request.user).order_by('-id')
+        queryset = self.queryset.filter(user=self.request.user)
         tags = self.request.query_params.get('tags')
         ingredients = self.request.query_params.get('ingredients')
         if tags:
@@ -61,7 +68,7 @@ class RecipeViewSet(ModelViewSet):
             ingredient_ids = self._params_to_ints(ingredients)
             queryset = queryset.filter(ingredients__id__in=ingredient_ids)
 
-        return queryset
+        return queryset.order_by('-id')
 
     def get_serializer_class(self):
         """ Return appropriate serializer class """
