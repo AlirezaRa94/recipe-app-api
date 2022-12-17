@@ -34,7 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class AuthTokenSerializer(serializers.Serializer):
+class AuthTokenSerializer(serializers.Serializer): # noqa
     """ Serializer for the user authentication object """
     email = serializers.CharField(max_length=255)
     password = serializers.CharField(
