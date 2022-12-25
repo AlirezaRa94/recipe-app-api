@@ -1,4 +1,4 @@
-FROM python:3.11-alpine3.16
+FROM python:3.10-alpine3.16
 LABEL maintainer="Alireza Raei"
 
 ENV PYTHONUNBUFFERED 1
@@ -24,15 +24,14 @@ RUN python -m venv /py && \
     adduser \
       --disabled-password \
       --no-create-home \
-      django-user
+      django-user && \
+    mkdir -p /vol/web/media && \
+    mkdir -p /vol/web/static && \
+    chown -R django-user:django-user /vol && \
+    chmod -R 755 /vol
 
 # Update the environment variable inside the image
 # All of our commands will be run from virtual environment
 ENV PATH="/py/bin:$PATH"
-#RUN mkdir -p /vol/web/static
-#RUN mkdir -p /vol/web/media
-#RUN adduser -D user
-#RUN chown -R user:user /vol/
-#RUN chmod -R 755 /vol/web
 
 USER django-user
