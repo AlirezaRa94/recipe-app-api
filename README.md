@@ -8,4 +8,4 @@ RESTful APIs of a recipe app based on Mark Winterbottom's course on Udemy:
 * Test Driven Development with Django
 * Used PostgreSQL database with Django
 * Set up a local development server with Docker (Docker Compose)
-* Configured Travis-CI to automate code checks
+* Configured GitHub Actions to automate code checks
