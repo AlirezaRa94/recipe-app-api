@@ -1,5 +1,8 @@
+"""
+Serializers for the user API view.
+"""
 from django.contrib.auth import get_user_model, authenticate
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext as _
 
 from rest_framework import serializers
 
@@ -36,7 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class AuthTokenSerializer(serializers.Serializer): # noqa
     """ Serializer for the user authentication object """
-    email = serializers.CharField(max_length=255)
+    email = serializers.EmailField()
     password = serializers.CharField(
         style={'input_type': 'password'},
         trim_whitespace=False
