@@ -1,6 +1,7 @@
 """
 Tests for models
 """
+from decimal import Decimal
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
@@ -73,13 +74,14 @@ class ModelTests(TestCase):
 
         self.assertEqual(str(ingredient), ingredient.name)
 
-    def test_recipe_str(self):
-        """ Test the recipe string representation """
+    def test_create_recipe(self):
+        """ Test creating a recipe is successful """
         recipe = models.Recipe.objects.create(
             user=sample_user(),
-            title='Steak and Mushroom Sauce',
+            title='Sample Recipe',
             time_minutes=5,
-            price=5.00
+            price=Decimal(5.50),
+            description='Sample recipe description',
         )
 
         self.assertEqual(str(recipe), recipe.title)
