@@ -9,3 +9,4 @@ RESTful APIs of a recipe app based on Mark Winterbottom's course on Udemy:
 * Used PostgreSQL database with Django
 * Set up a local development server with Docker (Docker Compose)
 * Configured GitHub Actions to automate linting and testing
+* Created automatic API documentation for DRF utilizing Swagger
