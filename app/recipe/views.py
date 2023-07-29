@@ -1,3 +1,6 @@
+"""
+Views for the recipe APIs
+"""
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework.authentication import TokenAuthentication
@@ -45,8 +48,8 @@ class IngredientViewSet(BaseRecipeAttrViewSet):
 
 
 class RecipeViewSet(ModelViewSet):
-    """ Manage recipes in the database """
-    serializer_class = serializers.RecipeSerializer
+    """ View for manage recipe APIs """
+    serializer_class = serializers.RecipeDetailSerializer
     queryset = Recipe.objects.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -72,12 +75,12 @@ class RecipeViewSet(ModelViewSet):
 
     def get_serializer_class(self):
         """ Return appropriate serializer class """
-        if self.action == 'retrieve':
-            return serializers.RecipeDetailSerializer
+        if self.action == 'list':
+            return serializers.RecipeSerializer
         elif self.action == 'upload_image':
             return serializers.RecipeImageSerializer
 
-        return serializers.RecipeSerializer
+        return self.serializer_class
 
     def perform_create(self, serializer):
         """ Create a new recipe for the authenticated user only """
